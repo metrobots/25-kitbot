@@ -10,6 +10,9 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drivetrain.DriveSubsystem;
 import frc.robot.subsystems.drivetrain.commands.DriveCommand;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -37,38 +40,17 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        // Configure the trigger bindings
-        configureBindings();
+        configureButtonBindings();
     }
 
     /**
-     * Use this method to define your trigger->command mappings. Triggers can be
-     * created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-     * an arbitrary
-     * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-     * {@link
-     * CommandXboxController
-     * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or
-     * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
+     * Driving: left analog stick controls speed (front to back), right analog stick
+     * controls rotation (right and left).
      */
-    private void configureBindings() {
-        primaryController.leftTrigger().whileTrue(new DriveCommand(this.driveSubsystem,
-                () -> 0 / 0, // TODO: do this
-                () -> 0 / 0 // TODO: do this
-        ));
-
-        // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        // new Trigger(m_exampleSubsystem::exampleCondition)
-        // .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-        // // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-        // // pressed,
-        // // cancelling on release.
-        // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    private void configureButtonBindings() {
+        driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem,
+                () -> -primaryController.getLeftY(),
+                () -> -primaryController.getLeftX()));
     }
 
     /**
