@@ -46,8 +46,18 @@ public class RobotContainer {
      * controls rotation (right and left).
      */
     private void configureButtonBindings() {
+        /*
+         * if left trigger is pressed, drive fast.
+         * else, slow drive.
+         */
+
         driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem,
-            () -> - primaryController.getLeftY(), () -> - primaryController.getLeftX()));
+            ()
+                -> primaryController.getLeftY()
+                * (primaryController.getHID().getRightBumperButton() ? 1 : 0.5),
+            ()
+                -> primaryController.getRightX()
+                * (primaryController.getHID().getRightBumperButton() ? 1 : 0.5)));
         primaryController.b().whileTrue(new ShootCommand(intakeSubsystem));
         primaryController.x().whileTrue(new IntakeCommand(intakeSubsystem));
     }
@@ -59,6 +69,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return Autos.exampleAuto(m_exampleSubsystem);
+        // return Autos.exampleAuto(m_exampleSubsystem);
+        return null;
     }
 }
