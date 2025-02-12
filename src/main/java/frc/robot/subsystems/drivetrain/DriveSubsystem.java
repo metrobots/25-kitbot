@@ -13,28 +13,24 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.SpeedPID;
 
 public class DriveSubsystem extends SubsystemBase {
-    private final SparkMax leftLeader =
-        new SparkMax(DriveConstants.LEFT_LEADER, MotorType.kBrushless);
-    private final SparkMax leftFollower =
-        new SparkMax(DriveConstants.LEFT_FOLLOWER, MotorType.kBrushless);
-    private final SparkMax rightLeader =
-        new SparkMax(DriveConstants.RIGHT_LEADER, MotorType.kBrushless);
-    private final SparkMax rightFollower =
-        new SparkMax(DriveConstants.RIGHT_FOLLOW, MotorType.kBrushless);
+    private final SparkMax leftLeader = new SparkMax(DriveConstants.LEFT_LEADER, MotorType.kBrushless);
+    private final SparkMax leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER, MotorType.kBrushless);
+    private final SparkMax rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER, MotorType.kBrushless);
+    private final SparkMax rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOW, MotorType.kBrushless);
     private final DifferentialDrive drive = new DifferentialDrive(leftLeader, rightLeader);
 
     private final RelativeEncoder encoder = leftLeader.getEncoder();
-    private final ProfiledPIDController speedPidController =
-        new ProfiledPIDController(SpeedPID.p, SpeedPID.i, SpeedPID.d, null);
+    private final ProfiledPIDController speedPidController = new ProfiledPIDController(SpeedPID.p, SpeedPID.i,
+            SpeedPID.d, null);
 
     public DriveSubsystem() {
         SparkMaxConfig config = new SparkMaxConfig();
         config.follow(leftLeader);
         leftFollower.configure(
-            config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+                config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         config.follow(rightLeader);
         rightFollower.configure(
-            config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+                config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     public void driveArcade(double xSpeed, double zRotation) {

@@ -7,8 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drivetrain.DriveSubsystem;
 import frc.robot.subsystems.drivetrain.commands.DriveCommand;
 import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -25,8 +23,6 @@ import frc.robot.subsystems.intake.commands.ShootCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
